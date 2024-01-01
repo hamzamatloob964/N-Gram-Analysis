@@ -1,38 +1,83 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.main-container{
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  width: 100%;
+}
+.sub-cont{
+  width: 80%;
+}
+.selected-tab{
+  /* color: green; */
+  font-weight: bold;
+}
+.header{
+  height: 5rem;
+  background-color: green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: white;
 }
-
-.App-link {
-  color: #61dafb;
+.content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.input-form{
+  display: flex;
+  flex-direction: column;
+}
+.input-field{
+  height: 10rem;
+  max-width: 25rem;
+  padding: 5px;
+  
+}
+.increament-field{
+  display: flex;
+  justify-content: space-between;
+}
+.counter{
+  width: 5rem;
+  height: 1rem;
+}
+.btn{
+  width: 100%;
+  height: 3rem;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  /* background-color: green; */
+  color: white;
+}
+table {
+  border: 2px solid forestgreen;
+  width: 30rem;
+  /* height: 200px; */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+th {
+  border-bottom: 1px solid black;
+}
+
+td {
+  text-align: center;
+}
+.marginT-right-5px{
+  margin-right: 5px;
+}
+.checkBox-size{
+  width: 17px;
+  height: 17px;
+  border-radius: 10px !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .sub-cont{
+    width: 100%;
+    padding: 5px;
   }
 }
