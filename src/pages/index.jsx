@@ -6,7 +6,7 @@ import '../App.css';
 function Index() {
 
 	const [tableLength, setTableLength] = useState(30);
-	const [nGramLength, setNGramLength] = useState(5);
+	const [nGramLength, setNGramLength] = useState(4);
 	const [caseSensitive, setCaseSensitive] = useState(true);
 	const [cipherInputText, setCipherInputText] = useState('The quick brown fox jumps over the lazy dog');
 	const [nGramsArr, setNGramsArr] = useState([]);
@@ -39,27 +39,30 @@ function Index() {
 			!value? computeNGrams(inputText.toUpperCase(),nGram,tLength) : computeNGrams(inputText,nGram,tLength)
 		}
   }
-
 	const computeNGrams = (inputText,nGram,tLength) => {
-		const finalText = inputText.replace(/ /g, '')
-    const nGObj = {};
-    for (let i = 0; i <= finalText.length - nGram; i++) {
-      const gram = finalText.substr(i, nGram);
-      if (!nGObj[gram]) {
-        nGObj[gram] = 1
-      } else {
-        nGObj[gram]++
-      }
-    }
-    const nGArr = []
-    const textLength = finalText.length
-    for (const gram in nGObj) {
-      const absolute = nGObj[gram]
-      const relative = (absolute / textLength) * 100
-      nGArr.push({ key: gram, absolute, relative: relative.toFixed(2) })
-    }
-    nGArr.sort((a, b) => b.absolute - a.absolute)
-    setNGramsArr(nGArr.slice(0, tLength))
+		const arr = []
+		for (let x = 1; x <= nGram; x++) {
+			const finalText = inputText.replace(/ /g, '')
+			const nGObj = {};
+			for (let i = 0; i <= finalText.length - x; i++) {
+				const gram = finalText.substr(i, x);
+				if (!nGObj[gram]) {
+					nGObj[gram] = 1
+				} else {
+					nGObj[gram]++
+				}
+			}
+			const nGArr = []
+			const textLength = finalText.length
+			for (const gram in nGObj) {
+				const absolute = nGObj[gram]
+				const relative = (absolute / textLength) * 100
+				nGArr.push({ key: gram, absolute, relative: relative.toFixed(2) })
+			}
+			nGArr.sort((a, b) => b.absolute - a.absolute)
+			arr.push(nGArr.slice(0, tLength))
+		}
+		setNGramsArr(arr)
   };
 
   return (
@@ -95,31 +98,37 @@ function Index() {
 						</div>
 
 						<button type="button" className="btn btn-primary btn-lg btn-block mt-4 mb-4" onClick={handleSubmit}>
-							Analyze
+							Analyse
 						</button>
-						{ nGramsArr.length > 0 &&
+						<div className='table-cont'>
 
-							<table className="table table-bordered">
-								<thead className="thead-dark">
-									<tr>
-										<th className='text-center'>Rank</th>
-										<th className='text-center' >{nGramLength}-gram</th>
-										<th className='text-center' >Abs.</th>
-										<th className='text-center' >Rel.</th>
-									</tr>
-								</thead>
-								<tbody>
-									{nGramsArr.map((gram, index) => (
-										<tr key={index}>
-											<td>{index+1}</td>
-											<td>{gram.key}</td>
-											<td>{gram.absolute}</td>
-											<td>{gram.relative}</td>
-										</tr>
-									))}
-								</tbody>
-							</table>
-						}
+							{ nGramsArr.length > 0 &&
+									
+									nGramsArr.map((arr,i) => (
+										
+										<table className="table table-bordered" key={i}>
+											<thead className="thead-dark">
+												<tr>
+													<th className='text-center custom-color'>Rank</th>
+													<th className='text-center custom-color' >{i+1}-gram</th>
+													<th className='text-center custom-color' >Abs.</th>
+													<th className='text-center custom-color' >Rel.</th>
+												</tr>
+											</thead>
+											<tbody>
+												{arr.map((gram, index) => (
+													<tr key={index}>
+														<td>{index+1}</td>
+														<td>{gram.key}</td>
+														<td>{gram.absolute}</td>
+														<td>{gram.relative}</td>
+													</tr>
+												))}
+											</tbody>
+										</table>
+									))
+							}
+						</div>
 					</TabPanel>
 					<TabPanel>
 						<h6>The N-gram analysis determines the frequency of different N-grams in a text. Especially the gaps between equal N-grams can potentially be very useful for cracking a cipher because they can point to the key length. The following German sentence results in the N-Gram Analysis shown below.

@@ -53,9 +53,18 @@
   /* background-color: green; */
   color: white;
 }
+.table-cont{
+  display: flex;
+  flex-wrap: wrap;
+}
+.custom-color{
+  background-color: rgb(67, 66, 66) !important;
+  color: white !important;
+}
 table {
   border: 2px solid forestgreen;
-  width: 30rem;
+  max-width: 370px;
+  margin: 10px;
   /* height: 200px; */
 }
 
